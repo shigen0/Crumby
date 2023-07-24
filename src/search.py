@@ -11,7 +11,7 @@ def search_passwords(host,auth,domain):
     dc1 = dcs[0]
     dc2 = dcs[1]
 
-    # If the -u option is used we limit the seach to users, and we get the two attributes mentioned (as well as the other information like the name etc)
+    # We get the two attributes mentioned (as well as the other information like the name etc)
     conn.search('dc='+dc1+',dc='+dc2, '(&(objectclass=user)(description=*))', attributes=['sAMAccountName','description'])
 
     users_success = []
@@ -23,7 +23,6 @@ def search_passwords(host,auth,domain):
             pattern = r"CN=(?P<user>[^,]*),CN=(?P<group>[^,]*),DC=.*"
             match = re.search(pattern, str(entry), re.MULTILINE)
 
-            # If there's a match it means that there is at least one account, if not none 
             if match:
                 # Get the informations from the regex search and directly from the entry
                 user = match.group('user')

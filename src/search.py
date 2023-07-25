@@ -50,7 +50,7 @@ def search_passwords(host,auth,domain):
                     except Exception as e:
                         pass
                     else:
-                        print("[*] Success :"+sAMAccountName+":"+part_pwd)
+                        print("[*] Success : "+sAMAccountName+":"+part_pwd)
                         users_success.append(sAMAccountName+":"+part_pwd)
                         nbr_success+=1
                         success = True

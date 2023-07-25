@@ -15,3 +15,7 @@ Options :
 
 Example :
 `python3 crumby.py -s 192.168.0.40 -a morgan.chloris:morgan123 -d cs.org`
+
+## Demonstration
+
+![Demo GIF](./demo.gif)

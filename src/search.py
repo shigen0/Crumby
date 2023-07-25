@@ -29,10 +29,10 @@ def search_passwords(host,auth,domain):
                 sAMAccountName = str(entry.sAMAccountName)
 
                 print(f"[*] User : {user}")
-                print(f"[*] sAMAccountName : {sAMAccountName}")
-                print(f"[*] Group : {group}")
-                print(f"[*] Description : {description}")
-                print(f"[*] Testing parts of the description to connect...")
+                print(f"[+] sAMAccountName : {sAMAccountName}")
+                print(f"[+] Group : {group}")
+                print(f"[+] Description : {description}")
+                print(f"[+] Testing parts of the description to connect...")
 
                 # Separating the description in parts, and adding them (as well as the entire description itself) to test for connectio
                 parts_desc = description.split()
@@ -48,12 +48,12 @@ def search_passwords(host,auth,domain):
                     except Exception as e:
                         pass
                     else:
-                        print("[*] Success : "+sAMAccountName+":"+part_pwd)
+                        print("[+] Success : "+sAMAccountName+":"+part_pwd)
                         users_success.append(sAMAccountName+":"+part_pwd)
                         nbr_success+=1
                         success = True
                 if not success:
-                    print("[*] Failed")
+                    print("[+] Failed")
             else:
                 print("[*] No match")
             print("\n")

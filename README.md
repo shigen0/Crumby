@@ -19,4 +19,4 @@ Example :
 
 ## Demonstration
 
-![Demo GIF](./crumby.gif)
+![Demo gif](./crumby.gif)

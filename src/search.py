@@ -10,7 +10,7 @@ def search_passwords(host,auth,domain,spray):
     dc1,dc2 = domain.split('.')
 
     # We get the two attributes mentioned (as well as the other information like the name etc)
-    conn.search('dc='+dc1+',dc='+dc2, '(&(objectclass=user)(description=*))', attributes=['sAMAccountName','description'])
+    conn.search('dc='+dc1+',dc='+dc2, '(&(objectclass=user))', attributes=['sAMAccountName','description'])
 
     users_success = []
     all_users = []
@@ -27,12 +27,11 @@ def search_passwords(host,auth,domain,spray):
                 group = match.group('group')
                 description = str(entry.description)
                 sAMAccountName = str(entry.sAMAccountName)
-
                 print(f"[*] User : {user}")
-                print(f"[+] sAMAccountName : {sAMAccountName}")
-                print(f"[+] Group : {group}")
-                print(f"[+] Description : {description}")
-                print(f"[+] Testing parts of the description to connect...")
+                print(f"[*] sAMAccountName : {sAMAccountName}")
+                print(f"[*] Group : {group}")
+                print(f"[*] Description : {description}")
+                print(f"[*] Testing parts of the description to connect...")
 
                 # Separating the description in parts, and adding them (as well as the entire description itself) to test for connectio
                 parts_desc = description.split()
@@ -52,12 +51,12 @@ def search_passwords(host,auth,domain,spray):
                         users_success.append(sAMAccountName+" "+part_pwd)
                         success = True
                 if not success:
-                    print("[+] Failed")
+                    print("[x] Failed")
                 all_users.append(sAMAccountName)
             else:
-                print("[*] No match")
+                print("[x] No match")
             print("\n")
     else:
-        print("[*] No description found")
+        print("[x] No description found")
 
     return all_users,users_success,conn,server

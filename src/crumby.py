@@ -19,8 +19,11 @@ def crumby(host,auth,domain,spray):
     all_users,users_success,conn,server = search_passwords(host,auth,domain,spray)
 
     print("[*] Report")
-    print("[+] Number of dumped passwords : "+str(len(users_success)))
-    print("[+] Cracked accounts : "+str(users_success))
+    print("[*] Number of dumped passwords : "+str(len(users_success)))
+    print("[*] Cracked accounts:")
+    for user in users_success:
+        print("[+]",user)
+
 
     if spray:
         print("\n[*] Spraying...")
@@ -33,7 +36,9 @@ def crumby(host,auth,domain,spray):
         passwords = [success.split()[1] for success in users_success]
 
         accounts_cracked = spraying(passwords,users_spray,domain,server)
-        print("[+] Other accounts cracked with the passwords found : "+str(accounts_cracked))
+        print("[*] Other accounts cracked with the passwords found :")
+        for account in accounts_cracked:
+            print("[+]",account)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Password searching tool in object descriptions')

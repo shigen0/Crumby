@@ -9,5 +9,5 @@ def spraying(passwords,usernames,domain,server):
             except Exception as e:
                 pass
             else:
-                accounts_cracked.append(user+" with password "+pwd)
+                accounts_cracked.append(user+" "+pwd)
     return accounts_cracked
